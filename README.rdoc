@@ -1,0 +1,3 @@
+== Meeting Site
+
+A events site to people can create and join events to meet people.
