@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :event_owner!, only: [:edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
@@ -71,5 +72,13 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :user_id)
+    end
+
+    def event_owner!
+      authenticate_user!
+      if @event.user_id != current_user.id
+        redirect_to events_path
+        flash[:notice] = 'You don not have enough permissions to do this'
+      end
     end
 end

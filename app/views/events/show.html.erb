@@ -31,8 +31,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @event.user %>
+  <strong>Organizer:</strong>
+  <%= @event.user.email %>
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

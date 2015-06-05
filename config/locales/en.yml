@@ -21,3 +21,13 @@
 
 en:
   hello: "Hello world"
+  date:
+    formats:
+      date_format: "%m/%d/%Y"
+  time:
+    formats:
+      date_format: "%m/%d/%Y"
+
+
+
+
