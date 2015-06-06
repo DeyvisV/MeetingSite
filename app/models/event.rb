@@ -28,12 +28,17 @@ class Event < ActiveRecord::Base
 
   # Getter
   def all_tags
-    self.tags.map(&:name).join(", ")
+    self.tags.map(&:name).join(",")
   end
-  
 
-   
+  # Search tags by name
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).events
+  end
 
-
+  # Count the number of tags associated with all the events
+  def self.tag_counts
+    Tag.select("tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id")
+  end
 end
 
