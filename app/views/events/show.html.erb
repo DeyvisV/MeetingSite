@@ -34,6 +34,12 @@
   <strong>Organizer:</strong>
   <%= @event.user.email %>
 </p>
+
+<label>Organized By: </label><br>
+  <%= image_tag avatar_url(@event_owners) %>
+  <%= @event_owners.email %>
+</br>
+
 <p>
   <strong>Tags:</strong> 
   <%= @event.all_tags %>

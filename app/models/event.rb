@@ -28,7 +28,7 @@ class Event < ActiveRecord::Base
 
   # Getter
   def all_tags
-    self.tags.map(&:name).join(",")
+    self.tags.map(&:name).join(", ")
   end
 
   # Search tags by name
@@ -40,5 +40,11 @@ class Event < ActiveRecord::Base
   def self.tag_counts
     Tag.select("tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id")
   end
+
+  # Find event owner
+  def self.event_owner(user_id)
+    User.find_by(id: user_id)
+  end
+
 end
 

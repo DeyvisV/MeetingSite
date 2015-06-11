@@ -11,7 +11,7 @@
   <div><%=" Address: "%><%= event.address %></div>
   <div><%=" Organizer: "%><%= event.user.email %></div>
   <div><%=" Tags: "%><br>
-  <%= raw event.all_tags.split(",").map { |t| link_to t, tag_path(t) }.join(", ") %></div>
+  <%= raw event.all_tags.split(",").map { |t| link_to t.strip, tag_path(t.strip) }.join(", ") %></div>
   <div><%= link_to 'Show', event %> - <%= link_to 'Edit', edit_event_path(event) %> - <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></div>
   <br>
 <% end %>
