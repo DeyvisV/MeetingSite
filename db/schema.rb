@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605122750) do
+ActiveRecord::Schema.define(version: 20150605132827) do
 
   create_table "events", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title",        limit: 255
     t.datetime "start_date"
     t.datetime "end_date"
-    t.string   "location",   limit: 255
-    t.text     "agenda",     limit: 65535
-    t.text     "address",    limit: 65535
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "slug",       limit: 255
+    t.string   "location",     limit: 255
+    t.text     "agenda",       limit: 65535
+    t.text     "address",      limit: 65535
+    t.integer  "organizer_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "slug",         limit: 255
   end
 
-  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+  add_index "events", ["organizer_id"], name: "index_events_on_organizer_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20150605122750) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "events", "users"
+  add_foreign_key "events", "users", column: "organizer_id"
   add_foreign_key "taggings", "events"
   add_foreign_key "taggings", "tags"
 end

@@ -7,9 +7,9 @@ class CreateEvents < ActiveRecord::Migration
       t.string :location
       t.text :agenda
       t.text :address
-      t.references :user, index: true, foreign_key: true
-
+      t.references :organizer, index: true
       t.timestamps null: false
     end
+    add_foreign_key :events, :users, column: :organizer_id
   end
 end

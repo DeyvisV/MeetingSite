@@ -1,9 +1,8 @@
 class Event < ActiveRecord::Base
   #belongs_to :organizer, class_name: "User"
-  belongs_to :user
+  belongs_to :organizer, class_name: "User"
   has_many :taggings
   has_many :tags, through: :taggings
-
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -42,8 +41,8 @@ class Event < ActiveRecord::Base
   end
 
   # Find event owner
-  def self.event_owner(user_id)
-    User.find_by(id: user_id)
+  def self.event_owner(organizer_id)
+    User.find_by(id: organizer_id)
   end
 
 end
