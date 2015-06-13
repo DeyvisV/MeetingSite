@@ -29,6 +29,12 @@ class EventsController < ApplicationController
   def edit
   end
 
+  def join
+    @attendance = Attendance.join_event(current_user.id, params[:event_id], 'request_sent')
+    'Request Sent' if @attendance.save
+    respond_with @attendance
+  end
+
   # POST /events
   # POST /events.json
   def create
