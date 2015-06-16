@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :accept_request, :reject_request]
   before_action :authenticate_user!
   before_action :event_owner!, only: [:edit, :update, :destroy]
 
@@ -18,6 +18,8 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event_owners = @event.organizer
+    @pending_requestss = Event.pending_requests(@event.id)
+    @attendees = Event.show_accepted_attendencees(@event.id)
   end
 
   # GET /events/new
@@ -32,7 +34,24 @@ class EventsController < ApplicationController
   def join
     @attendance = Attendance.join_event(current_user.id, params[:event_id], 'request_sent')
     'Request Sent' if @attendance.save
-    respond_with @attendance
+    #redirect_to @attendance
+    respond_with(@attendance)
+  end
+
+  def accept_request
+    @attendance = Attendance.find_by(id: params[:attendance_id]) rescue nil
+    @attendance.accept!
+    'Applicant Accepted' if @attendance.save
+    #redirect_to @attendance
+    respond_with(@attendance)
+  end
+
+  def reject_request
+    @attendance = Attendance.where(params[:attendance_id]) rescue nil
+    @attendance.reject!
+    'Applicant Rejected' if @attendance.save
+    #redirect_to @attendance
+    respond_with(@attendance)
   end
 
   # POST /events

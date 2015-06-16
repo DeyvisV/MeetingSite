@@ -29,7 +29,10 @@ gem 'devise'
 gem 'bootstrap-sass'
 # Slugs to our application
 gem 'friendly_id'
-
+# State Machine to events
+gem 'workflow'
+# respond_with
+gem 'responders'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

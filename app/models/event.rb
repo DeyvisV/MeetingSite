@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   has_many :users, through: :attendances
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders, :history]
   #friendly_id :slug_candidates, use: :slugged
 
   def slug_candidates
@@ -46,6 +46,17 @@ class Event < ActiveRecord::Base
   def self.event_owner(organizer_id)
     User.find_by(id: organizer_id)
   end
+
+  # Display the requests for the event owner.in the  model:
+  def self.pending_requests(event_id)
+    Attendance.where(event_id: event_id, state: 'request_sent')
+  end
+
+  # Show accepted attendencees
+  def self.show_accepted_attendencees(event_id)
+    Attendance.accepted.where(event_id: event_id)
+  end
+
 
 end
 
