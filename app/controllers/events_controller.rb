@@ -31,6 +31,10 @@ class EventsController < ApplicationController
   def edit
   end
 
+  def my_events
+    @events = current_user.organized_events
+  end
+
   def join
     @attendance = Attendance.join_event(current_user.id, params[:event_id], 'request_sent')
     'Request Sent' if @attendance.save

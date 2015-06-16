@@ -22,7 +22,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><%= link_to "Events", events_path %></li>
-            <li><a href="#">My Events</a></li>
+            <li><%= link_to "My Events", my_events_path %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>

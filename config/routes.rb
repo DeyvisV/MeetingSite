@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get :reject_request, to: 'events#reject_request', as: 'reject_request'
   end
 
+  get :my_events, to: 'events#my_events', as: 'my_events'
+
   devise_for :users
   resources :events
   # The priority is based upon order of creation: first created -> highest priority.

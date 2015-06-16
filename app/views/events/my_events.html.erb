@@ -1,0 +1,26 @@
+  <!--List Recently Created Events-->
+  
+  <div class="col-lg-8">
+    <h2>Recently Created Events</h2>
+
+    <% @events.each do |event| %>
+      <h4><%=" Titulo: "%><%= event.title%></h4>
+      <div><%=" Start Date: "%><%= l event.start_date, format: :date_format %></div>
+      <div><%=" End Date: "%><%= l event.end_date, format: :date_format %></div>
+      <div><%=" Location: "%><%= event.location %></div>
+      <div><%=" Agenda: "%><%= event.agenda %></div>
+      <div><%=" Address: "%><%= event.address %></div>
+      <div><%=" Organizer: "%><%= event.organizer.email if event.organizer %></div>
+      <div><%=" Tags: "%><br>
+      <%= raw event.all_tags.split(",").map { |t| link_to t.strip, tag_path(t.strip) }.join(", ") %></div>
+      <div><%= link_to 'Show', event %> - <%= link_to 'Edit', edit_event_path(event) %> - <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <br>
+    <% end %>
+    </div>
+
+    <%= link_to 'New Event', new_event_path %>
+
+    <div class="col-lg-4">
+      <%= render "tag_cloud"%>
+    </div>
+
